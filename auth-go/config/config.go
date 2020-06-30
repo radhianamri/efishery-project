@@ -2,13 +2,16 @@ package config
 
 import (
 	"log"
+
+	"github.com/jinzhu/gorm"
 )
 
 // Store initializes echo-session's RedisStore struct
 
-// DB initializes *gorm.DB struct
-
 var conf config
+
+// DB initializes *gorm.DB struct
+var DB *gorm.DB
 
 // AWSClientSession initializes *session.Session struct
 

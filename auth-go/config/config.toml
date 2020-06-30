@@ -2,8 +2,10 @@
     [config.LOCALHOST]
     cors_url = ["*"]
     api_route_url = ":7000"
-    redis_url = "localhost:6379"
-    redis_pass = ""
+    mysql_host = "localhost"
+    mysql_port = "3306"
+    mysql_user = "efishery-user"
+    mysql_pass = "efishery-DataBase-01"
     jwt_secret = "Efishery-JWT-Secret-Dev-010203"
     mode = "test"
 
@@ -11,7 +13,9 @@
     [config.PRODUCTION]
     cors_url = ["*"]
     api_route_url = ":7000"
-    redis_url = "localhost:6450"
-    redis_pass = "Efishery-Redis-Auth-2020"
+    mysql_host = "localhost"
+    mysql_port = "3306"
+    mysql_user = "efishery-user"
+    mysql_pass = "efishery-DataBase-01"
     jwt_secret = "Efishery-JWT-Secret-010203"
     mode = "prod"

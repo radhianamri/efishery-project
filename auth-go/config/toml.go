@@ -11,8 +11,10 @@ import (
 type config struct {
 	CorsURL       []string `toml:"cors_url"`
 	APIRouteURL   string   `toml:"api_route_url"`
-	RedisURL      string   `toml:"redis_url"`
-	RedisPass     string   `toml:"redis_pass"`
+	MySQLHost     string   `toml:"mysql_host"`
+	MySQLPort     string   `toml:"mysql_port"`
+	MySQLUser     string   `toml:"mysql_user"`
+	MySQLPass     string   `toml:"mysql_pass"`
 	SwaggerHost   string   `toml:"swagger_host"`
 	SwaggerSchema []string `toml:"swagger_schema"`
 	JWTSecret     string   `toml:"jwt_secret"`
