@@ -1,0 +1,15 @@
+auth
+- register
+    phone
+    name
+    role
+    password(4char)
+- login
+    phone  
+    password
+    retruns jwt with:
+        name   
+        phone
+        role
+        timestamp
+- claims
