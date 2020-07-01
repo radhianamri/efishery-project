@@ -1,4 +1,4 @@
-from config import config
+from config import Init, config
 import argparse
 from server import create_app
 
@@ -18,7 +18,7 @@ if __name__ == '__main__':
                 ', '.join(DEPLOYMENT_TYPES)
             )
         )
-
+    Init(deployment_type)
     print(config)
 
     app = create_app(deployment_type)
