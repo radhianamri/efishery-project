@@ -30,6 +30,9 @@ func NewRouter() *echo.Echo {
 	)
 	// Ping server
 	r.GET("/ping", controller.Ping)
+	r.POST("/auth/register", controller.CreateUser)
+	r.POST("/auth/login", controller.LoginUser)
+	r.GET("/auth/claims", controller.GetUserClaims)
 
 	return r
 }

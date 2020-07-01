@@ -1,7 +1,13 @@
 package model
 
 import (
+	"fmt"
+	"math/rand"
+	"regexp"
+	"strings"
 	"time"
+
+	"github.com/radhianamri/efishery-project/auth-go/config"
 )
 
 // User struct represents users table
@@ -20,13 +26,64 @@ func (User) TableName() string {
 	return "efishery.users"
 }
 
+// ValidateUser validates user information
+func ValidateUser(u *User) (err error) {
+	//validates name field
+	u.Name = strings.TrimSpace(u.Name)
+	if u.Name == "" {
+		return fmt.Errorf("Missing name field")
+	}
+
+	//validates phone field
+	u.Phone = strings.TrimSpace(u.Phone)
+	if u.Phone == "" {
+		return fmt.Errorf("Missing phone field")
+	}
+
+	if u.Phone[0] != '+' && u.Phone[0] != '0' {
+		return fmt.Errorf("Invalid phone: %s. Needs to begin with '+' or '0' character", u.Phone)
+	}
+	if u.Phone[0] == '0' {
+		u.Phone = "+62" + u.Phone[1:]
+	}
+	u.Phone = config.SimplifyPhoneNumber(u.Phone)
+	if !regexp.MustCompile(config.RegexPhoneNumber).MatchString(u.Phone) {
+		return fmt.Errorf("Invalid phone format: %s", u.Phone)
+	}
+
+	//validates role field
+	u.Role = strings.TrimSpace(u.Role)
+	if u.Role == "" {
+		return fmt.Errorf("Invalid role: %s", u.Role)
+	}
+
+	//creates random 4 character password
+	b := make([]rune, 4)
+	rand.Seed(time.Now().UnixNano())
+	letterRunes := []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+	for i := range b {
+		b[i] = letterRunes[rand.Intn(len(letterRunes))]
+	}
+	u.Password = string(b)
+	return nil
+}
+
 // CreateUser attempts to insert user data
 func CreateUser(u *User) (err error) {
-
+	if err := ValidateUser(u); err != nil {
+		return err
+	}
+	if err = config.DB.Create(u).Error; err != nil {
+		return err
+	}
 	return nil
 }
 
 // CheckLoginUser attempts to check user login and return data if found
-func CheckLoginUser(phone string, password string) (err error) {
-
+func CheckLoginUser(u *User) (err error) {
+	fmt.Println(u)
+	if err = config.DB.Where("phone = ? AND password = ?", u.Phone, u.Password).First(u).Error; err != nil {
+		return err
+	}
+	return nil
 }

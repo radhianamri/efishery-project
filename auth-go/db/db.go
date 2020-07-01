@@ -48,13 +48,16 @@ func Init() {
 	if err != nil {
 		log.Fatalf("Failed to establish connection to MySQL database: %s", err.Error())
 	}
+	// Set UTC timestamp
 	config.DB.Exec("SET @@global.time_zone='+00:00';")
 	config.DB.Exec("SET @@session.time_zone='+00:00';")
+
+	// Initialize Schema
 	config.DB.Exec("CREATE SCHEMA IF NOT EXISTS efishery")
 
-	if c.Mode == "test" {
-		DropTables(config.DB)
-	}
+	// if c.Mode == "test" {
+	// 	DropTables(config.DB)
+	// }
 
 	MigrateTables(config.DB)
 }
