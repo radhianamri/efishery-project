@@ -1,4 +1,4 @@
-from config import Init, config
+from config import parse_config
 import argparse
 from server import create_app
 
@@ -18,8 +18,7 @@ if __name__ == '__main__':
                 ', '.join(DEPLOYMENT_TYPES)
             )
         )
-    Init(deployment_type)
-    print(config)
+    
 
-    app = create_app(deployment_type)
+    app = create_app(deployment_type, parse_config(deployment_type))
     app.run(host="0.0.0.0", port=6000, debug=True, workers=1)
