@@ -8,7 +8,6 @@ def create_app(deployment_type, config):
 
     app = Sanic(__name__, strict_slashes=True)
     app.conf = config
-    print(app.conf)
     
     from controller.fetch import bp_fetch
     app.blueprint(bp_fetch)

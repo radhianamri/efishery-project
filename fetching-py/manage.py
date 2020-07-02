@@ -21,4 +21,4 @@ if __name__ == '__main__':
     
 
     app = create_app(deployment_type, parse_config(deployment_type))
-    app.run(host="0.0.0.0", port=6000, debug=True, workers=1)
+    app.run(host=app.conf["api_route_host"], port=app.conf["api_route_port"], debug=True, workers=1)
