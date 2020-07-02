@@ -100,7 +100,7 @@ async def resource_aggregate(request: Request):
                 dates.append(row.get("tgl_parsed"))
 
     print(dates)
-    return json({"success": True, "status": 200,'data': res})
+    return data(res)
 
 @bp_fetch.get('/claims')
 @authorized()

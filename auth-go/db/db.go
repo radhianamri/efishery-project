@@ -50,11 +50,13 @@ func Init() {
 	}
 	// Set UTC timestamp
 	config.DB.Exec("SET @@global.time_zone='+00:00';")
+
 	config.DB.Exec("SET @@session.time_zone='+00:00';")
+	config.DB.Exec("SET global sql_mode = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';")
 
 	// Initialize Schema
 	config.DB.Exec("CREATE SCHEMA IF NOT EXISTS efishery")
-
+	log.Println("Success mysql connection")
 	// if c.Mode == "test" {
 	// 	DropTables(config.DB)
 	// }

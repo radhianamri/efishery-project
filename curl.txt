@@ -27,3 +27,34 @@ curl localhost:6000/fetch/claims \
 -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiUmFkaGlhbiIsInBob25lIjoiKzYyMTIzNDU2Iiwicm9sZSI6IkFkbWluIiwidGltZXN0YW1wIjoiMjAyMC0wNy0wMVQyMzowNjoyNCswNzowMCJ9.itBJ1DIKfSO_qbYYoqacpFnn_B1G3ZdgoLRar9gMl0g"
 
 
+
+
+
+curl -X POST localhost:8000/auth/register \
+-d '{"name": "Radhian", "role": "Admin", "phone": "+62123456"}' -H "Content-Type: application/json" 
+
+
+
+curl -X POST localhost:8000/auth/login \
+-d '{"phone": "+62123456", "password":"MgCB"}' -H "Content-Type: application/json" 
+
+
+
+curl -X GET localhost:7000/auth/claims \
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiUmFkaGlhbiIsInBob25lIjoiKzYyMTIzNDU2Iiwicm9sZSI6IkFkbWluIiwidGltZXN0YW1wIjoiMjAyMC0wNy0wMlQxOTowMDoxMFoifQ.oi3LhdF8NPbDvaRv0ahUay6x6pHNjVxtvFVwu1-dn2s"
+
+
+
+
+curl localhost:6000/fetch/resource \
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiUmFkaGlhbiIsInBob25lIjoiKzYyMTIzNDU2Iiwicm9sZSI6IkFkbWluIiwidGltZXN0YW1wIjoiMjAyMC0wNy0wMlQxOTowMDoxMFoifQ.oi3LhdF8NPbDvaRv0ahUay6x6pHNjVxtvFVwu1-dn2s"
+
+
+curl localhost:6000/fetch/resource/aggregate \
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiUmFkaGlhbiIsInBob25lIjoiKzYyMTIzNDU2Iiwicm9sZSI6IkFkbWluIiwidGltZXN0YW1wIjoiMjAyMC0wNy0wMlQxOTowMDoxMFoifQ.oi3LhdF8NPbDvaRv0ahUay6x6pHNjVxtvFVwu1-dn2s"
+
+
+curl localhost:6000/fetch/claims \
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiUmFkaGlhbiIsInBob25lIjoiKzYyMTIzNDU2Iiwicm9sZSI6IkFkbWluIiwidGltZXN0YW1wIjoiMjAyMC0wNy0wMlQxOTowMDoxMFoifQ.oi3LhdF8NPbDvaRv0ahUay6x6pHNjVxtvFVwu1-dn2s"
+
+
