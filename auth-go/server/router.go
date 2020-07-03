@@ -28,11 +28,14 @@ func NewRouter() *echo.Echo {
 			Format: "method=${method}, uri=${uri}, latency=${latency}, status=${status}\n",
 		}),
 	)
-	// Ping server
-	r.GET("/ping", controller.Ping)
-	r.POST("/auth/register", controller.CreateUser)
-	r.POST("/auth/login", controller.LoginUser)
-	r.GET("/auth/claims", controller.GetUserClaims)
+	auth := r.Group("/auth")
+	{
+		auth.GET("/ping", controller.Ping)
+		auth.POST("/register", controller.CreateUser)
+		auth.POST("/login", controller.LoginUser)
+		auth.GET("/claims", controller.GetUserClaims)
+		auth.GET("/swagdocs", controller.SwaggerDocs)
+	}
 
 	return r
 }

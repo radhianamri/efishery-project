@@ -1,0 +1,88 @@
+definitions:
+  model.UserLogin:
+    properties:
+      password:
+        type: string
+      phone:
+        type: string
+    required:
+    - password
+    - phone
+    type: object
+  model.UserRegister:
+    properties:
+      name:
+        type: string
+      phone:
+        type: string
+      role:
+        type: string
+    type: object
+info:
+  contact:
+    email: radhian.amri@gmail.com
+  description: This is an API documentation for auth
+  license: {}
+  title: auth API
+  version: "1.0"
+paths:
+  /auth/claims:
+    post:
+      parameters:
+      - description: JWT token with format 'Bearer {jwt_token}'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      security:
+      - ApiKeyAuth: []
+      summary: attempts extract user claims
+      tags:
+      - Auth
+  /auth/login:
+    post:
+      parameters:
+      - description: Body request
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/model.UserLogin'
+          type: object
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      summary: attempts to login user
+      tags:
+      - Auth
+  /auth/register:
+    post:
+      parameters:
+      - description: Body request
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/model.UserRegister'
+          type: object
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      summary: attempts to create new user
+      tags:
+      - Auth
+  /auth/swagdocs:
+    get:
+      summary: get Swagger Documentation
+      tags:
+      - Swagger
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

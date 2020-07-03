@@ -4,7 +4,7 @@
     api_route_url = ":7000"
     mysql_host = "127.0.0.1"
     mysql_port = "3306"
-    mysql_user = "root"
+    mysql_user = "efishery-user"
     mysql_pass = "efishery-DataBase-01"
     jwt_secret = "Efishery-JWT-Secret-Dev-010203"
     mode = "test"
@@ -13,8 +13,8 @@
     [config.PRODUCTION]
     cors_url = ["*"]
     api_route_url = ":7000"
-    mysql_host = "172.28.1.2"
-    mysql_port = "3306"
+    mysql_host = "172.28.1.1"
+    mysql_port = "1999"
     mysql_user = "root"
     mysql_pass = "efishery-DataBase-01"
     jwt_secret = "Efishery-JWT-Secret-010203"

@@ -1,6 +1,6 @@
 docker stop fetch
 docker rm fetch
-#docker rmi fetch
+docker rmi fetch
 docker build -t fetching-py:latest -f deployment/fetching.Dockerfile .
 docker run -itd -p 6000:6000 --name fetch fetching-py:latest
 docker logs fetch

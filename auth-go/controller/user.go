@@ -17,12 +17,12 @@ type claimsResp struct {
 	Timestamp interface{} `json:"timestamp"`
 }
 
-type login struct {
-	Phone    string `json:"phone"`
-	Password string `json:"password"`
-}
-
-// CreateUser attempts to create new user
+// CreateUser - attempts to create new user
+// @Tags Auth
+// @Summary attempts to create new user
+// @Success 200 {string} string	"ok"
+// @Router /auth/register [POST]
+// @Param   body   body    model.UserRegister     true     "Body request"
 func CreateUser(c echo.Context) error {
 	var u model.User
 	if err := c.Bind(&u); err != nil {
@@ -37,7 +37,12 @@ func CreateUser(c echo.Context) error {
 	return OK(c, "A new user has been successfully registered.")
 }
 
-// LoginUser attempts to login user
+// LoginUser - attempts to login user
+// @Tags Auth
+// @Summary attempts to login user
+// @Success 200 {string} string	"ok"
+// @Router /auth/login [POST]
+// @Param   body   body    model.UserLogin     true     "Body request"
 func LoginUser(c echo.Context) error {
 	var u model.User
 	if err := c.Bind(&u); err != nil {
@@ -66,6 +71,12 @@ func LoginUser(c echo.Context) error {
 	return Data(c, newToken)
 }
 
+// GetUserClaims - attempts extract user claims
+// @Tags Auth
+// @Summary attempts extract user claims
+// @Security ApiKeyAuth
+// @Router /auth/claims [POST]
+// @Param   Authorization   header    string     true     "JWT token with format 'Bearer {jwt_token}'"
 func GetUserClaims(c echo.Context) error {
 	authScheme := "Bearer"
 	auth := c.Request().Header.Get("Authorization")

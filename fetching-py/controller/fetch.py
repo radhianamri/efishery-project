@@ -6,6 +6,8 @@ import aiohttp, ujson, jwt
 from datetime import datetime as dt 
 from . import *
 
+from sanic_openapi import doc
+
 
 from expiringdict import ExpiringDict
 cache = ExpiringDict(max_len=1, max_age_seconds=300)
@@ -28,8 +30,12 @@ def authorized():
 
             if userToken == "":
                 return unauthorized()
+            try:
+                res = jwt.decode(userToken, request.app.conf["jwt_secret"], algorithms=['HS256'])
+            except:
+                #invalid token
+                return unauthorized()
 
-            res = jwt.decode(userToken, request.app.conf["jwt_secret"], algorithms=['HS256'])
             request["claims"] = res
             response = await f(request, *args, **kwargs)
 
@@ -38,6 +44,8 @@ def authorized():
     return decorator
 
 @bp_fetch.get('/resource')
+@doc.summary("Returns list of resources with USD price")
+@doc.consumes(doc.String(description="JWT Token with format 'Bearer {jwt_token}'", name="Authorization"), location="header", required=True)
 @authorized()
 async def resource(request: Request):
     resource = []
@@ -76,6 +84,8 @@ async def resource(request: Request):
 
 
 @bp_fetch.get('/resource/aggregate')
+@doc.summary("Returns aggreageted list of resources by")
+@doc.consumes(doc.String(description="JWT Token with format 'Bearer {jwt_token}'", name="Authorization"), location="header", required=True)
 @authorized()
 async def resource_aggregate(request: Request):
     resource = []
@@ -102,7 +112,16 @@ async def resource_aggregate(request: Request):
     print(dates)
     return data(res)
 
+
+class Claims:
+    name = doc.String("User's Name")
+    phone = doc.String("User's phone")
+    role = doc.String("User's Role")
+    timestamp = doc.String("timestamp of user login")
 @bp_fetch.get('/claims')
+@doc.summary("Returns user claims")
+@doc.consumes(doc.String(description="JWT Token with format 'Bearer {jwt_token}'", name="Authorization"), location="header", required=True)
+@doc.produces(Claims, description="User's claims")
 @authorized()
 async def claims(request: Request):
     return data(request["claims"])

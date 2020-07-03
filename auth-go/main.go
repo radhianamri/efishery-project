@@ -8,6 +8,16 @@ import (
 	"github.com/radhianamri/efishery-project/auth-go/server"
 )
 
+// @title auth API
+// @version 1.0
+// @description This is an API documentation for auth
+
+// @contact.email radhian.amri@gmail.com
+
+// @securityDefinitions.apikey ApiKeyAuth
+// @in header
+// @name Authorization
+
 func main() {
 
 	config.Init()

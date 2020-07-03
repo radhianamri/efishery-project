@@ -3,6 +3,7 @@ package db
 import (
 	"fmt"
 	"log"
+	"time"
 
 	_ "github.com/go-sql-driver/mysql" // to establish MySQL connection
 	"github.com/jinzhu/gorm"
@@ -44,9 +45,16 @@ func Init() {
 		c.MySQLHost,
 		c.MySQLPort,
 	)
-	config.DB, err = gorm.Open("mysql", path)
-	if err != nil {
-		log.Fatalf("Failed to establish connection to MySQL database: %s", err.Error())
+	for {
+		config.DB, err = gorm.Open("mysql", path)
+		if err != nil {
+			log.Println("Failed to establish connection to MySQL database: %s\nRetrying connection in 2 seconds", err.Error())
+			<-time.After(2 * time.Second)
+			continue
+		}
+		if config.DB != nil {
+			break
+		}
 	}
 	// Set UTC timestamp
 	config.DB.Exec("SET @@global.time_zone='+00:00';")

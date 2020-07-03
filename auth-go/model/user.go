@@ -21,6 +21,19 @@ type User struct {
 	LastModified *time.Time `gorm:"column:last_modified; type:datetime; default:null on update current_timestamp" json:"last_modified,omitempty"`
 }
 
+// User struct represents users table
+type UserRegister struct {
+	Name  string `gorm:"column:name; type:varchar(50); not null" json:"name,omitempty"`
+	Phone string `gorm:"column:phone; type:varchar(20); not null" json:"phone,omitempty"`
+	Role  string `gorm:"column:role; type:varchar(10); not null" json:"role,omitempty"`
+}
+
+// UserLogin struct represents login requirements
+type UserLogin struct {
+	Phone    string `json:"phone" validate:"required"`
+	Password string `json:"password" validate:"required"`
+}
+
 // TableName method for User struct
 func (User) TableName() string {
 	return "efishery.users"
@@ -81,7 +94,6 @@ func CreateUser(u *User) (err error) {
 
 // CheckLoginUser attempts to check user login and return data if found
 func CheckLoginUser(u *User) (err error) {
-	fmt.Println(u)
 	if err = config.DB.Where("phone = ? AND password = ?", u.Phone, u.Password).First(u).Error; err != nil {
 		return err
 	}

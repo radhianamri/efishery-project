@@ -12,6 +12,9 @@ def create_app(deployment_type, config):
     from controller.fetch import bp_fetch
     app.blueprint(bp_fetch)
 
+    from sanic_openapi import swagger_blueprint
+    app.blueprint(swagger_blueprint)
+
     from sanic_cors import CORS, cross_origin
 
 
@@ -25,6 +28,8 @@ def create_app(deployment_type, config):
 
     from sanic.request import Request
     from sanic import response
+
+
     @app.get('/ping')
     async def ping(request: Request):
         return response.json({"success": True, "status": 200,'message': 'pong'})
