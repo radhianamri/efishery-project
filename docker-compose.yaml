@@ -73,6 +73,21 @@ services:
     ports:
       - "6000:6000"
 
+  swagger:
+    container_name: swagger
+    build:
+      context: .
+      dockerfile: deployment/swagger.Dockerfile
+    networks:
+      envoymesh:
+        ipv4_address: 172.28.1.5
+        aliases:
+          - swagger
+    expose:
+      - "9000"
+    ports:
+      - "9000:9000"
+
 networks:
   envoymesh:
     name: envoymesh

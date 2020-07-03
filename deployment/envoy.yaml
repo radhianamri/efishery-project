@@ -26,6 +26,10 @@ static_resources:
                     prefix: "/fetch"
                   route:
                     cluster: fetch_service
+                - match:
+                    prefix: "/swagger"
+                  route:
+                    cluster: fetch_service
             http_filters:
             - name: envoy.filters.http.router
               typed_config: {}

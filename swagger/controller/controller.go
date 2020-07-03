@@ -16,11 +16,11 @@ func Index(c echo.Context) error {
 	swaggers := []Swagger{{
 		1,
 		"Auth",
-		"http://localhost:7000/auth/swagdocs",
+		"http://172.28.1.1:8000/auth/swagdocs",
 	}, {
 		2,
 		"Fetch",
-		"http://localhost:8000/fetch/swagdocs",
+		"http://172.28.1.1:8000/swagger/swagger.json",
 	}}
 
 	return c.Render(http.StatusOK, "index.html", swaggers)

@@ -22,6 +22,7 @@ def create_app(deployment_type, config):
             'automatic_options': True,
             'supports_credentials': True,
             'allow_headers': '*',
+         
             "origins": "*"
         }
     CORS(app, **cors_kwargs)
