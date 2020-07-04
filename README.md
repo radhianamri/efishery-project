@@ -1,5 +1,6 @@
-# efishery-project
+# eFishery-project
 This repository is done in regard to complete eFishery's backend test. Goal of the test was to create two seperate backend services, one for authentication purpose and the other for fetching data.
+- note: didn't have much time left waiting for email reply, so the aggregate api is a mess
 ## Overview project
 This project consists of the following:
 - Authentication Service (Go)
