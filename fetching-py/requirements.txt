@@ -5,3 +5,4 @@ ujson==1.35
 aiohttp==3.5.4
 toml==0.10.0
 expiringdict==1.2.1
+pandas==1.0.5

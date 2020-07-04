@@ -6,6 +6,7 @@ import aiohttp, ujson, jwt
 from datetime import datetime as dt 
 from . import *
 
+import pandas as pd  
 from sanic_openapi import doc
 
 
@@ -101,16 +102,28 @@ async def resource_aggregate(request: Request):
     except Exception as e:
         print(e) 
         return timeout()
-   
+    
     res = []
-    dates = []
     for row in (resource):
-        if row.timestamp:
-            if row.get("tgl_parsed") not in dates:
-                dates.append(row.get("tgl_parsed"))
+        #data cleansing
+        if row.get("timestamp"):
+            try:
+                temp_date = dt.fromtimestamp(int(row.get("timestamp")))
+            except:
+                continue
+            res.append({
+                "area_provinsi":row.get("area_provinsi") if row.get("area_provinsi") else "null",
+                "year":temp_date.isocalendar()[0],
+                "week" : temp_date.isocalendar()[1],
+                "price": int(row.get("price")) if row.get("price") else 0
+            })
+            
+    # should never use pandas dues to performance issues 
+    df = pd.json_normalize(res)
+    df = pd.json_normalize(res).groupby(['area_provinsi','year', 'week']).agg({'price':['min','max','mean','median']})
+    df = df.reset_index()
 
-    print(dates)
-    return data(res)
+    return data(ujson.loads(df.to_json(orient='records')))
 
 
 class Claims:
