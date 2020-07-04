@@ -98,24 +98,6 @@ window.onload = function() {
 	layout: "StandaloneLayout",
   })
 
-  // add logout btn
-  let el = document.createElement("a");
-  let text = document.createTextNode("Logout");
-  el.appendChild(text);
-  el.setAttribute("href", "logout");
-  el.setAttribute("class", "logout");
-  let eclass = document.getElementsByClassName("topbar-wrapper");
-  eclass[0].appendChild(el)
-
-  // add specification btn  
-  let el2 = document.createElement("a");
-  let text2 = document.createTextNode("Specification");
-  el2.appendChild(text2);
-  el2.setAttribute("href", "specification");
-  el2.setAttribute("class", "logout");
-  let eclass2 = document.getElementsByClassName("topbar-wrapper");
-  eclass2[0].appendChild(el2)
-
   document.querySelector(".topbar-wrapper .link").innerHTML = "<img src='./assets/logo.png'/>";
 }
 </script>
