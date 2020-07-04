@@ -65,7 +65,7 @@ The below diagram is my proposal deploying in production environment
 
 Note: It may be a bit of a disclaimer to say it's too much overkill, but let's assume there is high load coming into the severs.
 
-![Architecture Diagram 1](/static/efishery.png)
+![Architecture Diagram 2](/static/efishery2.png)
 
 ### Database Choice
 First of all, in this case i'm using MySQL as my choice of database since the data is still structured and straightforward.
