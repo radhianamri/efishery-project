@@ -2,7 +2,7 @@ sanic-cors==0.9.7
 sanic-openapi==0.6.1
 python-dateutil==2.8.0
 ujson==1.35
-aiohttp==3.5.4
+aiohttp==3.7.4
 toml==0.10.0
 expiringdict==1.2.1
 pandas==1.0.5
